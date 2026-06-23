@@ -1,5 +1,0 @@
-export { AccountTable, AccountStateTable, ControlAccountTable } from "@thinksoft/core/account/sql"
-export { ProjectTable } from "@thinksoft/core/project/sql"
-export { SessionTable, MessageTable, PartTable, TodoTable } from "@thinksoft/core/session/sql"
-export { SessionShareTable } from "@thinksoft/core/share/sql"
-export { WorkspaceTable } from "@thinksoft/core/control-plane/workspace.sql"
