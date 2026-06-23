@@ -9,6 +9,9 @@ out/
 .env
 .env.local
 
+# CLI packages (not part of web app)
+packages/
+
 # Misc
 .DS_Store
 *.log
