@@ -22,6 +22,7 @@ export default function Home() {
   const { isSignedIn, user } = useUser()
   const { signOut } = useClerk()
   const [copied, setCopied] = useState(false)
+  const [expanded, setExpanded] = useState(-1)
   const [currentView, setCurrentView] = useState<"home" | "signup">("home")
 
   if (currentView === "signup") {
@@ -293,16 +294,32 @@ export default function Home() {
             </div>
             <div className="lg:w-[70%] flex flex-col">
               {[
-                "How do I install Thinksoft? — Run npm install -g thinksoft in your terminal and you are ready.",
-                "How do I log in to the CLI? — Run thinksoft and press any key. Your browser opens to authenticate via Clerk (Google, GitHub, or email).",
-                "Do I need my own API keys? — Yes. You bring your own keys from OpenAI, Anthropic, Google, or any supported provider.",
-                "How do I log out? — Type /logout in the TUI or run thinksoft logout.",
-                "Is my code sent to third parties? — Only to the AI provider you choose. We do not store your code.",
-                "Does Thinksoft work on Windows, macOS, and Linux? — Yes. All platforms are supported with native installers.",
-              ].map((q, i) => (
-                <div key={i} className={`py-5 flex justify-between items-center cursor-pointer group ${i === 0 ? "border-y" : "border-b"} border-[#E3E2DA]`}>
-                  <span className="text-[15px] text-[#111111]">{q}</span>
-                  <ChevronDown size={20} strokeWidth={1.5} className="text-[#111] transition-transform group-hover:opacity-70" />
+                { q: "How do I install Thinksoft?", a: "Run <code>npm install -g thinksoft</code> in your terminal and you are ready." },
+                { q: "How do I log in to the CLI?", a: "Run <code>thinksoft</code> and press any key. Your browser opens to authenticate via Clerk (Google, GitHub, or email)." },
+                { q: "Do I need my own API keys?", a: "Yes. You bring your own keys from OpenAI, Anthropic, Google, or any supported provider." },
+                { q: "How do I log out?", a: "Type <code>/logout</code> in the TUI or run <code>thinksoft logout</code>." },
+                { q: "Is my code sent to third parties?", a: "Only to the AI provider you choose. We do not store your code." },
+                { q: "Does Thinksoft work on Windows, macOS, and Linux?", a: "Yes. All platforms are supported with native installers." },
+              ].map((item, i) => (
+                <div key={i} className={`${i === 0 ? "border-y" : "border-b"} border-[#E3E2DA]`}>
+                  <button
+                    onClick={() => setExpanded(expanded === i ? -1 : i)}
+                    className="w-full py-5 flex justify-between items-center cursor-pointer group text-left"
+                  >
+                    <span className="text-[15px] text-[#111111]">{item.q}</span>
+                    <ChevronDown
+                      size={20}
+                      strokeWidth={1.5}
+                      className={`text-[#111] transition-transform duration-200 shrink-0 ml-4 ${expanded === i ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  <div
+                    className={`overflow-hidden transition-all duration-200 ease-in-out ${
+                      expanded === i ? "max-h-40 pb-5" : "max-h-0"
+                    }`}
+                  >
+                    <p className="text-[14.5px] text-[#777] leading-relaxed pr-8" dangerouslySetInnerHTML={{ __html: item.a }} />
+                  </div>
                 </div>
               ))}
             </div>
