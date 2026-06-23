@@ -77,8 +77,8 @@ export default function Home() {
               </h2>
               <div className="flex items-center gap-1 mb-3">
                 <button className="px-3.5 py-1.5 rounded-full bg-[#E5E4DE] text-[12px] font-medium text-[#111] tracking-tight">PowerShell</button>
-                <button className="px-3.5 py-1.5 rounded-full text-[#777] text-[12px] font-medium hover:text-[#111] transition-colors tracking-tight">macOS</button>
-                <button className="px-3.5 py-1.5 rounded-full text-[#777] text-[12px] font-medium hover:text-[#111] transition-colors tracking-tight">Linux / WSL</button>
+                <button className="px-3.5 py-1.5 rounded-full bg-[#E5E4DE] text-[12px] font-medium text-[#111] tracking-tight">macOS</button>
+                <button className="px-3.5 py-1.5 rounded-full bg-[#E5E4DE] text-[12px] font-medium text-[#111] tracking-tight">Linux / WSL</button>
               </div>
               <div className="flex items-center bg-[#EBEAE6] rounded-[10px] p-[5px] pl-4 text-[13px] font-mono text-neutral-700 w-full max-w-[420px]">
                 <span className="truncate flex-1 py-1.5">npm install -g thinksoft</span>
@@ -337,8 +337,8 @@ export default function Home() {
             <div className="mt-4 flex flex-col items-start w-full sm:w-auto text-left">
               <div className="flex items-center gap-2 text-[14.5px] mb-3 ml-2">
                 <button className="bg-[#E6E4DF] px-3.5 py-1 rounded-full text-[#111111]">PowerShell</button>
-                <button className="text-[#333] px-3.5 py-1 hover:text-[#111111] transition-colors">macOS</button>
-                <button className="text-[#333] px-3.5 py-1 hover:text-[#111111] transition-colors">Linux / WSL</button>
+                <button className="bg-[#E6E4DF] px-3.5 py-1 rounded-full text-[#111111]">macOS</button>
+                <button className="bg-[#E6E4DF] px-3.5 py-1 rounded-full text-[#111111]">Linux / WSL</button>
               </div>
               <div className="bg-[#EFECE8] rounded-[6px] p-3.5 pl-6 flex items-center justify-between w-[90vw] sm:w-[500px] max-w-full">
                 <code className="text-[#333] font-mono text-[15px] truncate mr-4">npm install -g thinksoft</code>
