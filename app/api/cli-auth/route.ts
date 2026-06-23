@@ -19,6 +19,7 @@ async function ensureTables(sql: any) {
 export async function POST() {
   try {
     const { userId } = await auth()
+    console.log("[cli-auth] userId from auth():", userId)
     if (!userId) {
       return Response.json({ error: "Not authenticated" }, { status: 401 })
     }
@@ -26,6 +27,7 @@ export async function POST() {
     const client = await clerkClient()
     const clerkUser = await client.users.getUser(userId)
     const email = clerkUser.emailAddresses[0]?.emailAddress
+    console.log("[cli-auth] email:", email)
     if (!email) {
       return Response.json({ error: "No email found" }, { status: 400 })
     }
@@ -37,9 +39,11 @@ export async function POST() {
     const token = ulid()
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString()
     await sql`INSERT INTO cli_sessions (token, user_id, expires_at) VALUES (${token}, ${userId}, ${expiresAt})`
+    console.log("[cli-auth] token created:", token)
 
     return Response.json({ token })
   } catch (err: any) {
+    console.error("[cli-auth] error:", err.message)
     return Response.json({ error: err.message }, { status: 500 })
   }
 }
