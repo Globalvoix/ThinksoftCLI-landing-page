@@ -172,7 +172,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col gap-2 pl-7 text-[#A39E93]">
                     <div>/model Auto</div>
-                    <div>/model Composer 2.5</div>
+                    <div>/model DeepSeek V4 Flash Free</div>
                     <div className="text-neutral-900 flex items-center gap-2.5 -ml-7 border-neutral-900 pl-0">
                       <span className="text-neutral-900 font-medium">→</span>
                       <span className="font-bold">/model Opus 4.8</span>
