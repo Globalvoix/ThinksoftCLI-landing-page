@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { Copy, Plus, Check, ChevronDown } from "lucide-react"
 import { useUser, useClerk } from "@clerk/nextjs"
-import { ThinksoftAsciiAnimation } from "@/components/ThinksoftAscii"
 import { Signup } from "@/components/Signup"
 
 function Step({ text, time }: { text: string; time: string }) {
@@ -332,7 +331,6 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col items-center justify-center mt-12 pb-24 w-full px-4 text-center overflow-x-hidden">
-            <ThinksoftAsciiAnimation />
             <h2 className="text-[34px] sm:text-[40px] md:text-[48px] leading-[1.1] font-normal tracking-[-0.01em] text-[#111111] mb-8">Get started with Thinksoft.</h2>
             <div className="mt-4 flex flex-col items-start w-full sm:w-auto text-left">
               <div className="flex items-center gap-2 text-[14.5px] mb-3 ml-2">
