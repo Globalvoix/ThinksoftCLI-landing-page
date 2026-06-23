@@ -14,7 +14,7 @@ function CliAuthInner() {
     if (!isLoaded) return
 
     if (!isSignedIn) {
-      router.push(`/signup?redirect_url=/cli-auth?${searchParams.toString()}`)
+      router.push(`/login?redirect_url=/cli-auth?${searchParams.toString()}`)
       return
     }
 

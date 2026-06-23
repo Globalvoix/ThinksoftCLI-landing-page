@@ -1,20 +1,23 @@
 "use client"
 
 import { useSignIn, useSignUp } from "@clerk/nextjs"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useState, FormEvent } from "react"
 
 interface SignupProps {
   setCurrentView?: (view: "home" | "signup") => void
+  initialMode?: "login" | "signup"
 }
 
-export function Signup({ setCurrentView }: SignupProps) {
-  const [isLogin, setIsLogin] = useState(false)
+export function Signup({ setCurrentView, initialMode = "signup" }: SignupProps) {
+  const [isLogin, setIsLogin] = useState(initialMode === "login")
   const [email, setEmail] = useState("")
   const [code, setCode] = useState("")
   const [step, setStep] = useState<"email" | "code">("email")
   const [error, setError] = useState("")
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectUrl = searchParams.get("redirect_url") || "/"
   const { isLoaded: signInLoaded, signIn } = useSignIn()
   const { isLoaded: signUpLoaded, signUp, setActive } = useSignUp()
 
@@ -44,7 +47,7 @@ export function Signup({ setCurrentView }: SignupProps) {
           }
         } else if (result.status === "complete") {
           await (setActive as any)({ session: result.createdSessionId })
-          router.push("/")
+          router.push(redirectUrl)
         }
       } catch (err: any) {
         setError(err.errors?.[0]?.message || "Something went wrong")
@@ -71,7 +74,7 @@ export function Signup({ setCurrentView }: SignupProps) {
         const result = await signIn.attemptFirstFactor({ strategy: "email_code", code })
         if (result.status === "complete") {
           await signIn.createdSessionId ? (setActive as any)({ session: result.createdSessionId }) : null
-          router.push("/")
+          router.push(redirectUrl)
         }
       } catch (err: any) {
         setError(err.errors?.[0]?.message || "Invalid code")
@@ -82,7 +85,7 @@ export function Signup({ setCurrentView }: SignupProps) {
         const result = await signUp.attemptVerification({ strategy: "email_code", code })
         if (result.status === "complete") {
           await setActive({ session: result.createdSessionId })
-          router.push("/")
+          router.push(redirectUrl)
         }
       } catch (err: any) {
         setError(err.errors?.[0]?.message || "Invalid code")
@@ -93,7 +96,8 @@ export function Signup({ setCurrentView }: SignupProps) {
   const handleOAuth = async (provider: "oauth_github" | "oauth_google") => {
     if (!signInLoaded) return
     try {
-      await signIn.authenticateWithRedirect({ strategy: provider, redirectUrl: "/sso-callback", redirectUrlComplete: "/" })
+      const completeUrl = redirectUrl !== "/" ? redirectUrl : "/"
+await signIn.authenticateWithRedirect({ strategy: provider, redirectUrl: "/sso-callback", redirectUrlComplete: completeUrl })
     } catch (err: any) {
       setError(err.errors?.[0]?.message || "OAuth failed")
     }
