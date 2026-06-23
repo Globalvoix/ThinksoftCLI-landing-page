@@ -300,6 +300,11 @@ export default function Home() {
                 { q: "How do I log out?", a: "Type <code>/logout</code> in the TUI or run <code>thinksoft logout</code>." },
                 { q: "Is my code sent to third parties?", a: "Only to the AI provider you choose. We do not store your code." },
                 { q: "Does Thinksoft work on Windows, macOS, and Linux?", a: "Yes. All platforms are supported with native installers." },
+                { q: "What is Thinksoft CLI?", a: "Thinksoft CLI is an AI-powered coding assistant that helps you build, edit, debug, and understand code directly from your terminal." },
+                { q: "Is Thinksoft CLI free?", a: "Yes. Thinksoft CLI is completely free to use." },
+                { q: "Which operating systems are supported?", a: "Thinksoft CLI supports Windows, macOS, and Linux." },
+                { q: "Can Thinksoft CLI work with existing projects?", a: "Yes. Thinksoft CLI can understand and work with both new and existing codebases." },
+                { q: "How do I get started?", a: "Install Thinksoft CLI, open your terminal, and start building with AI in seconds." },
               ].map((item, i) => (
                 <div key={i} className={`${i === 0 ? "border-y" : "border-b"} border-[#E3E2DA]`}>
                   <button
