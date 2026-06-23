@@ -31,6 +31,7 @@ function CliAuthInner() {
     fetch("/api/cli-auth", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
     })
       .then(async (res) => {
         const data = await res.json()

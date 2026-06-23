@@ -1,6 +1,6 @@
 "use client"
 
-import { useSignIn, useSignUp } from "@clerk/nextjs"
+import { useSignIn, useSignUp, useClerk } from "@clerk/nextjs"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState, FormEvent } from "react"
 
@@ -19,7 +19,8 @@ export function Signup({ setCurrentView, initialMode = "signup" }: SignupProps) 
   const searchParams = useSearchParams()
   const redirectUrl = searchParams.get("redirect_url") || "/"
   const { isLoaded: signInLoaded, signIn } = useSignIn()
-  const { isLoaded: signUpLoaded, signUp, setActive } = useSignUp()
+  const { isLoaded: signUpLoaded, signUp } = useSignUp()
+  const { setActive } = useClerk()
 
   const handleEmailSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -46,7 +47,7 @@ export function Signup({ setCurrentView, initialMode = "signup" }: SignupProps) 
             setError("Email code authentication is not available. Try another method.")
           }
         } else if (result.status === "complete") {
-          await (setActive as any)({ session: result.createdSessionId })
+          await setActive({ session: result.createdSessionId })
           router.push(redirectUrl)
         }
       } catch (err: any) {
@@ -73,7 +74,7 @@ export function Signup({ setCurrentView, initialMode = "signup" }: SignupProps) 
       try {
         const result = await signIn.attemptFirstFactor({ strategy: "email_code", code })
         if (result.status === "complete") {
-          await signIn.createdSessionId ? (setActive as any)({ session: result.createdSessionId }) : null
+          await setActive({ session: result.createdSessionId })
           router.push(redirectUrl)
         }
       } catch (err: any) {
