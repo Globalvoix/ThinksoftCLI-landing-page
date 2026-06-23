@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Copy, Plus, Check, ChevronDown } from "lucide-react"
+import { useUser, useClerk } from "@clerk/nextjs"
 import { ThinksoftAsciiAnimation } from "@/components/ThinksoftAscii"
 import { Signup } from "@/components/Signup"
 
@@ -18,6 +19,8 @@ function Step({ text, time }: { text: string; time: string }) {
 }
 
 export default function Home() {
+  const { isSignedIn, user } = useUser()
+  const { signOut } = useClerk()
   const [copied, setCopied] = useState(false)
   const [currentView, setCurrentView] = useState<"home" | "signup">("home")
 
@@ -38,12 +41,21 @@ export default function Home() {
           <span className="text-[20px] font-bold tracking-[-0.04em] text-[#1C1C1C] mr-4">THINKSOFT</span>
         </div>
         <div className="flex items-center gap-2.5 text-[14px] text-[#111111]">
-          <button
-            onClick={() => setCurrentView("signup")}
-            className="rounded-full bg-[#1C1C1C] text-white px-3.5 py-[7px] hover:bg-black transition-colors border border-transparent shadow-sm"
-          >
-            Try now
-          </button>
+          {isSignedIn ? (
+            <button
+              onClick={() => signOut({ redirectUrl: "/" })}
+              className="rounded-full border border-neutral-300 text-neutral-700 px-3.5 py-[7px] hover:bg-neutral-100 transition-colors"
+            >
+              Log out
+            </button>
+          ) : (
+            <button
+              onClick={() => setCurrentView("signup")}
+              className="rounded-full bg-[#1C1C1C] text-white px-3.5 py-[7px] hover:bg-black transition-colors border border-transparent shadow-sm"
+            >
+              Try now
+            </button>
+          )}
         </div>
       </header>
 
